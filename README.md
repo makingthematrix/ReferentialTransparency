@@ -1,5 +1,7 @@
 # Referential Transparency
 
+**Note**: You can run both versions of the example from your terminal, with `sbt run`.
+
 We will finish the course with a module about Referential Transparency (RT, in short), a concept tightly connected to the idea of a pure function that we discussed before. A pure function operates only on its input parameters and has no side effects, i.e., the only result of the function call should be the value it returns. The function will not modify data in any data collection, write to a file, access any object it wasn't given a reference to in the form of an input parameter, etc.
 Referential Transparency takes pure functions even one step further. For a function to be referentially transparent, it must hold that replacing the function call with the value it returns will not affect the program's behaviour.
 Imagine that we have a case class of a protagonist, with their first and last name and their age:
