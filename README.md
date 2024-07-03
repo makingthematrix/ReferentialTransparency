@@ -22,10 +22,8 @@ The function is pure. It operates only on its parameters, `protagonist` and `n`,
 ``` scala
 // program version #1
 val protagonist = Protagonist("Jonas", "Kahnwald", 17)
-val newProtagonist = updateAge(protagonist, 33) 
-	// returns Protagonist("Jonas", "Kahnwald", 50)
-val newerProtagonist = updateAge(newProtagonist, 33) 
-	// returns Protagonist("Jonas", "Kahnwald", 83)
+val newProtagonist = updateAge(protagonist, 33) // returns Protagonist("Jonas", "Kahnwald", 50)
+val newerProtagonist = updateAge(newProtagonist, 33) // returns Protagonist("Jonas", "Kahnwald", 83)
 ```
 
 can be replaced with:
@@ -50,9 +48,9 @@ The function call and the value are virtually interchangeable. But let's say we 
 
 ```scala
 def updateAge(p: Protagonist, n: Int): Protagonist =
-	val newAge = p.age + n
-	println(s"The age of ${p.firstName} ${p.lastName} changes from ${p.age} to $newAge")
-	p.copy(age = newAge)
+  val newAge = p.age + n
+  println(s"The age of ${p.firstName} ${p.lastName} changes from ${p.age} to $newAge")
+  p.copy(age = newAge)
 ```
 
 Now, all three versions of the program still give use the same values for `protagonist`, `newProtagonist` and `newerProtagonist` but what we see in the logs is different:
@@ -107,7 +105,7 @@ import scala.jdk.CollectionConverters.*
 import cats.effect.IO
 
 def read(path: Path): IO[List[String]] =
-    IO { Files.readAllLines(path).asScala.toList }
+  IO { Files.readAllLines(path).asScala.toList }
 ```
 
 That's it: all we need to do is to wrap our file-reading logic in the IO monad. Now, when we call read, the file will not be read **yet**. Instead, the file-reading logic will be added to the scenario held in the monad. After we build the whole scenario, it will be executed only when we pass the monad to Cats Effect.
@@ -143,8 +141,8 @@ Now that we have a list of protagonists and the number with which to update thei
 def updateAge(p: Protagonist, n: Int): IO[Protagonist] =
     val newAge = p.age + n
     for {
-      _ <- IO.println(s"The age of ${p.firstName} ${p.lastName} changes from ${p.age} to $newAge")
-      updated = p.copy(age = newAge)
+      _       <- IO.println(s"The age of ${p.firstName} ${p.lastName} changes from ${p.age} to $newAge")
+      updated =  p.copy(age = newAge)
     } yield updated
 ```
 
@@ -169,7 +167,7 @@ To write to the file, we will again use Java NIO and wrap the code in the IO mon
 
 ```scala
 def write(path: Path, lines: List[String]): IO[Unit] =
-    IO { Files.writeString(path, lines.mkString("\n")) }
+  IO { Files.writeString(path, lines.mkString("\n")) }
 ```
 
 Finally, we need to join all the instances of the IO monad that our functions return and the calls to our pure functions. We will do it using the Scala `for/yield` notation. When that's done, we will have one IO monad holding the scenario we built:
