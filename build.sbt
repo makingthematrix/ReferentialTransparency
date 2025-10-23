@@ -39,8 +39,9 @@ lazy val root = (project in file("."))
     name := "ReferentialTransparency",
     libraryDependencies ++= Seq(
       "org.typelevel" %% "cats-effect" % "3.6.3",
+      "org.slf4j" % "slf4j-simple" % "2.0.17",
       //Test dependencies
-      "org.scalameta" %% "munit" % "1.2.0" % "test"
+      "org.scalameta" %% "munit" % "1.2.1" % "test"
     ),
     scalacOptions ++= standardOptions ++ scala3Options
   )
