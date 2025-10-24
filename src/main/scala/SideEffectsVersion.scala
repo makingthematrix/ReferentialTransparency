@@ -10,7 +10,7 @@ object SideEffectsVersion {
     val newLines     = updated.map(_.toLine)
     write(FilePath, newLines)
   }
-  
+
   private val FilePath: Path = Paths.get("resources/protagonists.csv")
 
   private def read(path: Path): List[String] =

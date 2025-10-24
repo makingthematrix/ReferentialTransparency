@@ -1,7 +1,7 @@
 import java.nio.file.{Files, Path, Paths}
 import scala.jdk.CollectionConverters.*
 import org.slf4j.LoggerFactory
-import MUnitVersion.{logger, updateAge}
+import MUnitVersion.updateAge
 
 class MUnitVersion(read        : () => List[String], 
                    askForUpdate: () => Int, 
@@ -17,7 +17,7 @@ class MUnitVersion(read        : () => List[String],
 }
 
 object MUnitVersion {
-  @main def main(): Unit = MUnitVersion().run()
+  def main(): Unit = MUnitVersion().run()
   
   def apply(): MUnitVersion =
     new MUnitVersion(
