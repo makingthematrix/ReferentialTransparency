@@ -7,8 +7,11 @@ object SideEffectsVersion {
     val protagonists = lines.map(Protagonist.fromLine)
     println("DRUGI COMMIT")
     val n            = askForUpdate()
+    println(s"n: $n")
     val updated      = protagonists.map(updateAge(_, n))
+    println(s"updated: $updated")
     val newLines     = updated.map(_.toLine)
+    println(s"newLines: $newLines")
     write(FilePath, newLines)
   }
 
