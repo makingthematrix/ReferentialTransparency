@@ -2,7 +2,7 @@ import java.nio.file.{Files, Path, Paths}
 import scala.jdk.CollectionConverters.*
 
 object SideEffectsVersion {
-  def main(): Unit = {
+  @main def main(): Unit = {
     val lines        = read(FilePath)
     val protagonists = lines.map(Protagonist.fromLine)
     println("DRUGI COMMIT")
