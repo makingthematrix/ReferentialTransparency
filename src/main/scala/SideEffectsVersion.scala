@@ -11,6 +11,7 @@ object SideEffectsVersion {
     val updated      = protagonists.map(updateAge(_, n))
     println(s"updated: $updated")
     val newLines     = updated.map(_.toLine)
+    println(s"newLines: $newLines")
     write(FilePath, newLines)
   }
 
