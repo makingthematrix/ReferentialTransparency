@@ -9,7 +9,7 @@ object LazyScalaCSVVersion {
       .all()
       .map(Protagonist.fromList)
 
-  @main def main(): Unit = {
+  def main(): Unit = {
     val n = askForUpdate()
     if (n > 0) {
       val updated = protagonists.map(updateAge(_, n))

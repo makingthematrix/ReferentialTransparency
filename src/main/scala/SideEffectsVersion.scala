@@ -2,9 +2,10 @@ import java.nio.file.{Files, Path, Paths}
 import scala.jdk.CollectionConverters.*
 
 object SideEffectsVersion {
-  def main(): Unit = {
+  @main def main(): Unit = {
     val lines        = read(FilePath)
     val protagonists = lines.map(Protagonist.fromLine)
+    println(s"protagonists: $protagonists")
     val n            = askForUpdate()
     val updated      = protagonists.map(updateAge(_, n))
     val newLines     = updated.map(_.toLine)
