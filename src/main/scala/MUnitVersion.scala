@@ -1,11 +1,12 @@
 import java.nio.file.{Files, Path, Paths}
 import scala.jdk.CollectionConverters.*
 import org.slf4j.LoggerFactory
-import MUnitVersion.updateAge
 
 class MUnitVersion(read        : () => List[String], 
                    askForUpdate: () => Int, 
                    write       : List[String] => Unit) {
+  import MUnitVersion.updateAge
+
   def run(): Unit = {
     val lines        = read()
     val protagonists = lines.map(Protagonist.fromLine)
@@ -27,7 +28,8 @@ object MUnitVersion {
     )
 
   private val FilePath: Path = Paths.get("resources/protagonists.csv")
-  private val logger = LoggerFactory.getLogger(classOf[MUnitVersion])
+  private val log =
+    LoggerFactory.getLogger(classOf[MUnitVersion])
 
   private def updateAge(p: Protagonist, n: Int): Protagonist = p.copy(age = p.age + n)
 

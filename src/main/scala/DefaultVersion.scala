@@ -1,17 +1,13 @@
 import java.nio.file.{Files, Path, Paths}
 import scala.jdk.CollectionConverters.*
 
-object SideEffectsVersion {
-  @main def main(): Unit = {
+object DefaultVersion {
+  def main(): Unit = {
     val lines        = read(FilePath)
     val protagonists = lines.map(Protagonist.fromLine)
-    println("DRUGI COMMIT")
     val n            = askForUpdate()
-    println(s"n: $n")
     val updated      = protagonists.map(updateAge(_, n))
-    println(s"updated: $updated")
     val newLines     = updated.map(_.toLine)
-    println(s"newLines: $newLines")
     write(FilePath, newLines)
   }
 
@@ -25,7 +21,7 @@ object SideEffectsVersion {
     val answer = scala.io.StdIn.readLine()
     answer.toInt
   }
-  
+
   private def updateAge(p: Protagonist, n: Int): Protagonist = {
     val newAge = p.age + n
     println(s"The age of ${p.firstName} ${p.lastName} changes from ${p.age} to $newAge")
