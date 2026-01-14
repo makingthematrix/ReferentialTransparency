@@ -27,15 +27,13 @@ object CapabilitiesVersion {
 
   type RunType = (ReadLines, ReadNumber, Print, Write) ?-> Unit
 
-  val run: RunType = askForUpdate match {
-    case n if n != 0 =>
-      writeLines(
-        FilePath,
-        read(FilePath)
-          .map(Protagonist.fromLine)
-          .map(updateAge(_, n).toLine)
-      )
-    case _ =>
+  val run: RunType = {
+    val lines        = read(FilePath)
+    val protagonists = lines.map(Protagonist.fromLine)
+    val n            = askForUpdate
+    val updated      = protagonists.map(updateAge(_, n))
+    val newLines     = updated.map(_.toLine)
+    writeLines(FilePath, newLines)
   }
 
   private object System {
