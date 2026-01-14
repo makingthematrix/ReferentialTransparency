@@ -1,5 +1,5 @@
 
-val _scalaVersion = "3.7.2"
+val _scalaVersion = "3.8.0-RC6"
 
 ThisBuild / version := "0.1.0"
 
@@ -31,7 +31,10 @@ val scala3Options = Seq(
   "-Wsafe-init", // Warn about potentially unsafe initialization of fields
   "-Ycheck-all-patmat", // Enable exhaustiveness checking for all pattern matching
   "-Wunused:imports", // Warn about unused imports
-  "-no-indent", "-rewrite" // Disable significant indentation syntax and rewrite source files to use braces
+  "-no-indent", "-rewrite", // Disable significant indentation syntax and rewrite source files to use braces,
+  "-experimental",
+  "-preview",
+  "-language:experimental.captureChecking"
 )
 
 
@@ -43,6 +46,7 @@ lazy val root = (project in file("."))
       "com.github.tototoshi" %% "scala-csv" % "2.0.0",
       "com.softwaremill.macwire" %% "macros" % "2.6.7" % Provided,
       "org.apache.pekko" %% "pekko-actor-typed" % "1.4.0",
+      "org.apache.pekko" %% "pekko-stream" % "1.4.0",
       "ch.qos.logback" % "logback-classic" % "1.5.22",
       //Test dependencies
       "org.scalameta" %% "munit" % "1.2.1" % Test

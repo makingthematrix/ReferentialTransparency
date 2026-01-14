@@ -13,7 +13,7 @@ class CustomFuture[T](f: => T)(using ec: ExecutionContext) {
   def isCompleted: Boolean = value.isDefined
 
   private var onCompleted: List[Try[T] => Unit] = Nil
-  def onComplete(f: Try[T] => Unit): Unit = {
+  def onComplete(f: Try[T] -> Unit): Unit = {
     if (isCompleted)
       value.foreach(v => f(v))
     else

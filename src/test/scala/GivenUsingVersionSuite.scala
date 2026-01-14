@@ -1,4 +1,4 @@
-class GivenUsingVersionSuite extends munit.FunSuite{
+class GivenUsingVersionSuite extends munit.FunSuite {
 
   val inputLines = List(
     "Ada,Lovelace,36",

@@ -32,6 +32,7 @@ object PekkoVersion {
     private var n = 0
 
     private def checkAndUpdateAge(): Unit = if (protagonists.nonEmpty && n != 0) {
+      context.log.info(s"checkAndUpdateAge")
       val updated = protagonists.map(updateAge(_, n))
       val newLines = updated.map(_.toLine)
       readWriteActor.foreach(_ ! WriteRequest(newLines))
@@ -169,7 +170,7 @@ object PekkoVersion {
     }
   }
 
-  @main def main(): Unit = {
+  def main(): Unit = {
     import PekkoVersion.Message.Start
 
     println("Pekko Version Start")

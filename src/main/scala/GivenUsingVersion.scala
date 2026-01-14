@@ -1,7 +1,6 @@
 import java.nio.file.{Files, Path, Paths}
 import scala.jdk.CollectionConverters.*
 
-
 trait GivenUsingVersion {
   def read(): List[String]
   def askForUpdate(): Int
