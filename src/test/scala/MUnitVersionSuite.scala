@@ -1,5 +1,21 @@
 import munit.FunSuite
 
+/**
+ * MUnitVersionSuite provides unit tests for the `MUnitVersion` class using the MUnit framework.
+ *
+ * The primary goal is to verify the behavior of the `run` method of `MUnitVersion` in various scenarios
+ * by substituting real dependencies with mock functions for controlled testing.
+ *
+ * '''Key Testing Scenarios:'''
+ * - Incrementing ages in input lines by a positive number.
+ * - Handling empty input by ensuring the output is also empty.
+ * - Supporting zero and negative increments in age adjustments.
+ *
+ * '''Test Strategies:'''
+ * - '''Mock Input and Output''': Instead of real I/O, mock functions are passed to inject necessary data.
+ * - '''Behavior Verification''': Ensure that injected functions are invoked with the right frequency and data.
+ * - '''Output Validation''': Compare the output to expected results after processing.
+ */
 class MUnitVersionSuite extends FunSuite {
 
   test("run increments ages by n and writes updated CSV lines") {
@@ -17,9 +33,9 @@ class MUnitVersionSuite extends FunSuite {
 
     // run
     val app = new MUnitVersion(
-      read         = () => inputLines,
-      askForUpdate = () => { asked += 1; 2 },
-      write        = outputLines => { writeCalls += 1; written = Some(outputLines) }
+      readLines    = ()          => inputLines,
+      askForUpdate = ()          => { asked += 1; 2 },
+      writeLines   = outputLines => { writeCalls += 1; written = Some(outputLines) }
     )
     app.run()
 
@@ -39,9 +55,9 @@ class MUnitVersionSuite extends FunSuite {
     var written: Option[List[String]] = None
 
     new MUnitVersion(
-      read         = () => Nil,
-      askForUpdate = () => 5,
-      write        = out => { written = Some(out) }
+      readLines    = ()  => Nil,
+      askForUpdate = ()  => 5,
+      writeLines   = out => { written = Some(out) }
     ).run()
 
     assertEquals(written, Some(Nil))
@@ -56,9 +72,9 @@ class MUnitVersionSuite extends FunSuite {
     // Zero increment
     var zeroOut: Option[List[String]] = None
     val appZero = new MUnitVersion(
-      read         = () => inputLines,
-      askForUpdate = () => 0,
-      write        = out => zeroOut = Some(out)
+      readLines    = ()  => inputLines,
+      askForUpdate = ()  => 0,
+      writeLines   = out => zeroOut = Some(out)
     )
     appZero.run()
     assertEquals(zeroOut, Some(inputLines))
@@ -66,9 +82,9 @@ class MUnitVersionSuite extends FunSuite {
     // Negative increment
     var negOut: Option[List[String]] = None
     val appNeg = new MUnitVersion(
-      read         = () => inputLines,
-      askForUpdate = () => -2,
-      write        = out => negOut = Some(out)
+      readLines    = ()  => inputLines,
+      askForUpdate = ()  => -2,
+      writeLines   = out => negOut = Some(out)
     )
     appNeg.run()
     val expectedNeg = List(

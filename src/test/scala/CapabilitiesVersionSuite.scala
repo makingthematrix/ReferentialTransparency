@@ -16,10 +16,10 @@ class CapabilitiesVersionSuite extends munit.FunSuite {
     )
     
     object Test {
-      given ReadLines  = (path: Path) => inputLines
-      given ReadNumber = () => { asked +=1; Some(UpdateNumber) }
-      given Print      = (str: String) => ()
-      given Write      = (path: Path, lines: List[String]) => { writeCalls += 1; written = Some(lines) }
+      given ReadLines  = (path: Path)                      => inputLines
+      given ReadNumber = ()                                => { asked +=1; Some(UpdateNumber) }
+      given Print      = (str: String)                     => ()
+      given WriteLines = (path: Path, lines: List[String]) => { writeCalls += 1; written = Some(lines) }
 
       inline def apply(run: RunType): Unit = run
     }

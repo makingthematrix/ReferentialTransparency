@@ -11,7 +11,7 @@ object PromiseVersion {
   def main(): Unit = {
     val nPromise = Promise[Int]()
     val pFuture = Future {
-      read(FilePath).map(Protagonist.fromLine)
+      readLines(FilePath).map(Protagonist.fromLine)
     }
 
     val resultFuture =
@@ -20,7 +20,7 @@ object PromiseVersion {
         .map { (protagonists, n) =>
       val updated = protagonists.map(updateAge(_, n))
       val newLines = updated.map(_.toLine)
-      write(FilePath, newLines)
+      writeLines(FilePath, newLines)
     }
 
     askForUpdate(nPromise)
@@ -30,7 +30,7 @@ object PromiseVersion {
 
   private val FilePath: Path = Paths.get("resources/protagonists.csv")
 
-  private def read(path: Path): List[String] =
+  private def readLines(path: Path): List[String] =
     Files.readAllLines(path).asScala.toList
 
   private def askForUpdate(nPromise: Promise[Int]): Unit = {
@@ -45,6 +45,6 @@ object PromiseVersion {
     p.copy(age = newAge)
   }
 
-  private def write(path: Path, lines: List[String]): Unit =
+  private def writeLines(path: Path, lines: List[String]): Unit =
     Files.writeString(path, lines.mkString("\n"))
 }

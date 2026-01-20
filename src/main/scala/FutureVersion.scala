@@ -18,13 +18,13 @@ object FutureVersion {
   //given ExecutionContext = ExecutionContext.fromExecutor(threadPool) //[2]
 
   def main(): Unit = {
-    val pFuture = Future { read(FilePath).map(Protagonist.fromLine) }
+    val pFuture = Future { readLines(FilePath).map(Protagonist.fromLine) }
     val nFuture = Future { askForUpdate() }
 
     val resultFuture = pFuture.zip(nFuture).map { (protagonists, n) =>
       val updated = protagonists.map(updateAge(_, n))
       val newLines = updated.map(_.toLine)
-      write(FilePath, newLines)
+      writeLines(FilePath, newLines)
     }
 
     // or: Future.sequence(pFuture, nFuture)
@@ -46,7 +46,7 @@ object FutureVersion {
 
   private val FilePath: Path = Paths.get("resources/protagonists.csv")
 
-  private def read(path: Path): List[String] =
+  private def readLines(path: Path): List[String] =
     Files.readAllLines(path).asScala.toList
 
   private def askForUpdate(): Int = {
@@ -61,6 +61,6 @@ object FutureVersion {
     p.copy(age = newAge)
   }
 
-  private def write(path: Path, lines: List[String]): Unit =
+  private def writeLines(path: Path, lines: List[String]): Unit =
     Files.writeString(path, lines.mkString("\n"))
 }
